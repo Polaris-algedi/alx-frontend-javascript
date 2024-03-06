@@ -7,11 +7,11 @@ export default function handleProfileSignup() {
   const userPromise = createUser();
 
   // Use Promise.all to wait for both promises to resolve
-  Promise.all([photoPromise, userPromise])
+  return Promise.all([photoPromise, userPromise])
     .then(([photoResult, userResult]) => {
       console.log(`${photoResult.body} ${userResult.firstName} ${userResult.lastName}`);
     })
-    .catch((error) => {
+    .catch(() => {
       console.error('Signup system offline');
     });
 }
