@@ -1,7 +1,7 @@
 /* Returns a string of all the set values that start with a specific string (startString). */
 
 export default function cleanSet(aSet, startString) {
-  if (startString === '') {
+  if (!(startString) || !(typeof startString === 'string')) {
     return '';
   }
 
