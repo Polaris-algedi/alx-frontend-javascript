@@ -1,11 +1,13 @@
 /* Returns a string of all the set values that start with a specific string (startString). */
 
-export default function cleanSet(aSet, aString) {
-  let list = [];
-  for (const item of aSet) {
-    if (item.startsWith(aString) && aString) {
-      list = [...list, item.slice(aString.length, item.length)];
-    }
+export default function cleanSet(aSet, startString) {
+  if (startString === '') {
+    return '';
   }
-  return list.join('-');
+
+  const filteredValues = Array.from(aSet)
+    .filter((item) => item.startsWith(startString))
+    .map((item) => item.slice(startString.length));
+
+  return filteredValues.join('-');
 }
