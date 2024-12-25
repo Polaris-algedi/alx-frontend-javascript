@@ -1,18 +1,20 @@
-// Define the Teacher interface
 interface Teacher {
-  firstName: string;
-  lastName: string;
-  fullTimeEmployee: boolean;
-  yearsOfExperience?: number;
-  location: string;
-  [key: string]: any; // Index signature for dynamic attributes
+    readonly firstName: string
+    readonly lastName: string
+    fullTimeEmployee: boolean
+    yearsOfExperience?: number
+    location: string
+    [key: string]: any
 }
 
-// Define the Teacher object
-const teacher3: Teacher = {
-  firstName: 'John',
-  lastName: 'Doe',
-  fullTimeEmployee: false,
-  location: 'London',
-  contract: false, // Dynamic attribute
-};
+interface Directors extends Teacher {
+  numberOfReports: number
+}
+
+interface printTeacherFunction {
+  (firstName: string, lastName: string): string;
+}
+
+const printTeacher: printTeacherFunction = (firstName, lastName) => `${firstName[0]}. ${lastName}`;
+
+console.log(printTeacher("John", "Doe")); // Output: J. Doe
