@@ -1,4 +1,3 @@
-// Interface for Student data
 interface Student {
   firstName: string;
   lastName: string;
@@ -6,42 +5,39 @@ interface Student {
   location: string;
 }
 
-// Create two student objects
 const student1: Student = {
-  firstName: "Abas",
-  lastName: "Ali",
+  firstName: 'John',
+  lastName: 'Doe',
   age: 20,
-  location: "US",
+  location: 'New York',
 };
 
 const student2: Student = {
-  firstName: "Anas",
-  lastName: "Ali",
-  age: 21,
-  location: "Indonesia",
+  firstName: 'Jane',
+  lastName: 'Smith',
+  age: 22,
+  location: 'Los Angeles',
 };
 
-// Create an array of students
 const studentsList: Student[] = [student1, student2];
 
-// Function to render a table row
-function renderTableRow(student: Student) {
-  const tableBody = document.getElementById("tableBody");
-  if (tableBody) {
-    const tableRow = document.createElement("tr");
-    const firstNameCell = document.createElement("td");
-    const locationCell = document.createElement("td");
+function renderTable(students: Student[]) {
+  const table = document.createElement('table');
+  const headerRow = table.insertRow();
+  const headerCell1 = headerRow.insertCell(0);
+  const headerCell2 = headerRow.insertCell(1);
+  headerCell1.innerText = 'First Name';
+  headerCell2.innerText = 'Location';
 
-    firstNameCell.textContent = student.firstName;
-    locationCell.textContent = student.location;
+  students.forEach(student => {
+    const row = table.insertRow();
+    const cell1 = row.insertCell(0);
+    const cell2 = row.insertCell(1);
+    cell1.innerText = student.firstName;
+    cell2.innerText = student.location;
+  });
 
-    tableRow.appendChild(firstNameCell);
-    tableRow.appendChild(locationCell);
-    tableBody.appendChild(tableRow);
-  } else {
-    console.error("Table body element not found!");
-  }
+  document.body.appendChild(table);
 }
 
-// Render table rows for each student
-studentsList.forEach(renderTableRow);
+renderTable(studentsList);
