@@ -1,48 +1,29 @@
-// Define DirectorInterface with 3 methods
-interface DirectorInterface {
-  workFromHome(): string;
-  getCoffeeBreak(): string;
-  workDirectorTasks(): string;
-}
+/// <reference path="./crud.d.ts" />  <!-- Triple-slash directive to include the crud.d.ts file -->
 
-// Define TeacherInterface with 3 methods
-interface TeacherInterface {
-  workFromHome(): string;
-  getCoffeeBreak(): string;
-  workTeacherTasks(): string;
-}
+import { RowID, RowElement } from './interface';  // Importing RowID and RowElement from interface.ts
+import * as CRUD from './crud';  // Import everything from crud.js as CRUD
 
-// Implement Director class implementing DirectorInterface
-class Director implements DirectorInterface {
-  workFromHome(): string {
-    return 'Working from home';
-  }
-  getCoffeeBreak(): string {
-    return 'Getting a coffee break';
-  }
-  workDirectorTasks(): string {
-    return 'Getting to director tasks';
-  }
-}
+// Create the row object with the type RowElement
+const row: RowElement = {
+  firstName: 'Guillaume',
+  lastName: 'Salva',
+};
 
-// Implement Teacher class implementing TeacherInterface
-class Teacher implements TeacherInterface {
-  workFromHome(): string {
-    return 'Cannot work from home';
-  }
-  getCoffeeBreak(): string {
-    return 'Cannot have a break';
-  }
-  workTeacherTasks(): string {
-    return 'Getting to work';
-  }
-}
+// Create a const variable `newRowID` with the type RowID and assign the value from insertRow
+const newRowID: RowID = CRUD.insertRow(row);  // The insertRow function is invoked
 
-// Create a function createEmployee to return either Director or Teacher instance based on salary
-function createEmployee(salary: number | string): Director | Teacher {
-  if (typeof salary === 'number' && salary < 500) {
-    return new Teacher();
-  } else {
-    return new Director();
-  }
-}
+console.log(`Inserted new row with ID: ${newRowID}`);
+
+// Create the updatedRow object with the type RowElement and add the age field
+const updatedRow: RowElement = {
+  ...row,  // Spread the existing row
+  age: 23, // Add or update the age field
+};
+
+// Call the updateRow function
+const updatedRowID = CRUD.updateRow(newRowID, updatedRow);  // Update the row with the new age
+console.log(`Updated row with ID: ${updatedRowID}`);
+
+// Call the deleteRow function
+CRUD.deleteRow(newRowID);  // Delete the row by its ID
+console.log(`Deleted row with ID: ${newRowID}`);
